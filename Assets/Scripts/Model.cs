@@ -6,9 +6,12 @@ using System.Linq;
 
 public class Model : MonoBehaviour {
 	Level level;
+	public int floor_num;
 	public Slider bossHealth;
 	public Slider partyHealth;
 	public Text boss_cooldown;
+	public Text win_text;
+	public Image boss_image;
 
 	public GameObject p1;
 	public GameObject p2;
@@ -27,19 +30,24 @@ public class Model : MonoBehaviour {
 	Person archer = new Person("archer", 3, 2, "interrupt", 2);
 
 	public List<Floor> floors;
+	public List<Person> party_members;
 
 	// Use this for initialization
 	void Start () {
 		PopulateFloors();
-		level = new Level(floors[0]);
 
 		p1.GetComponent<PartyMember>().me = man;
 		p2.GetComponent<PartyMember>().me = boy;
 		p3.GetComponent<PartyMember>().me = witch;
 		p4.GetComponent<PartyMember>().me = archer;
 
-		bossHealth.maxValue = level.total_boss_health;
-		partyHealth.maxValue = level.total_party_health;
+		party_members = new List<Person>();
+		party_members.Add(man);
+		party_members.Add(boy);
+		party_members.Add(witch);
+		party_members.Add(archer);
+
+		LoadFloor(floor_num);
 	}
 	
 	// Update is called once per frame
@@ -51,12 +59,51 @@ public class Model : MonoBehaviour {
 		} else {
 			boss_cooldown.text = null;
 		}
+		if(level.current_party_health <= 0){
+			win_text.text = "YOU LOSE :(";
+			win_text.gameObject.SetActive(true);
+		}
+	}
+
+	public void Restart(){
+		win_text.gameObject.SetActive(false);
+		floor_num = 0;
+		LoadFloor(floor_num);
+	}
+
+	void LoadFloor(int num){
+		if(floor_num >= floors.Count) {
+			win_text.text = "YOU WIN!!";
+			win_text.gameObject.SetActive(true);
+			return;
+		}
+		level = new Level(floors[num]);
+
+		Sprite boss_sprite = Resources.Load<Sprite>(level.floor.name);
+		boss_image.sprite = boss_sprite;
+
+		// reset party cooldowns
+		foreach(Person p in party_members){
+			p.current_delay = 0;
+		}
+		// reset boss cooldowns
+		foreach(Attack a in level.floor.attacks){
+			a.cur_cooldown = 0;
+		}
+
+		bossHealth.maxValue = level.total_boss_health;
+		partyHealth.maxValue = level.total_party_health;
 	}
 
 	void PopulateFloors(){
 		floors = new List<Floor>();
 		// Declare Floors and Boss Attacks
-		Floor f = new Floor("test", 100);
+		Floor f = new Floor("trash1_lizard", 50);
+		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 20, "delayed attack", 1, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 15, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("boss1_lizardperson", 100);
 		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
@@ -93,13 +140,19 @@ public class Model : MonoBehaviour {
 	}
 
 	public void Execute(){
-		int damage = 0;
-		damage += HandleAttack(p1);
-		damage += HandleAttack(p2);
-		damage += HandleAttack(p3);
-		damage += HandleAttack(p4);
-		level.DamageBoss(damage);
-		level.BossAttack();
+		if(level.current_party_health > 0){
+			int damage = 0;
+			damage += HandleAttack(p1);
+			damage += HandleAttack(p2);
+			damage += HandleAttack(p3);
+			damage += HandleAttack(p4);
+			level.DamageBoss(damage);
+			if(level.current_boss_health <= 0){
+				floor_num++;
+				LoadFloor(floor_num);
+			}
+			level.BossAttack();
+		}
 	}
 }
 
@@ -165,13 +218,14 @@ public class Level {
 }
 
 public class Floor{
-	public List<Attack> attacks = new List<Attack>();
+	public List<Attack> attacks;
 	public string name;
 	public int health;
 
 	public Floor(string n, int h){
 		name = n;
 		health = h;
+		attacks = new List<Attack>();
 	}
 
 	public void AddAttack(Attack a){
