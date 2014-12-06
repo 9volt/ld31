@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Model : MonoBehaviour {
 	Level level;
@@ -18,10 +19,10 @@ public class Model : MonoBehaviour {
 	GameObject b4;
 
 
-	Person man = new Person("sword_man", 3, 6, "strong_sword");
-	Person boy = new Person("heal_boy", 1, 0, "heal");
-	Person witch = new Person("witch", 4, 0, "chain_break");
-	Person archer = new Person("archer", 3, 2, "interrupt");
+	Person man = new Person("sword_man", 3, 6, "strong_sword", 3);
+	Person boy = new Person("heal_boy", 1, 0, "heal", 2);
+	Person witch = new Person("witch", 4, 0, "chain_break", 5);
+	Person archer = new Person("archer", 3, 2, "interrupt", 2);
 
 	// Use this for initialization
 	void Start () {
@@ -48,9 +49,43 @@ public class Model : MonoBehaviour {
 		partyHealth.value = level.current_party_health;
 	}
 
+	int HandleAttack(GameObject p){
+		string attack_type = p.GetComponent<ToggleGroup>().GetActive().name;
+		Person person = p.GetComponent<PartyMember>().me;
+		Debug.Log(attack_type);
+		int damage = 0;
+		// Lower delay
+		if(person.current_delay > 0) {
+			person.current_delay--;
+		}
+		// Determine attack type
+		if(attack_type == "Attack") {
+			damage = person.basic_attack;
+		} else if(attack_type == "Special") {
+			damage = person.special_attack;
+			switch(person.special_attack_type){
+			case "heal":
+				Debug.Log("Heal");
+				level.DamagePlayers(-25);
+				break;
+			default:
+				Debug.Log("Special");
+				break;
+			}
+			person.current_delay = person.delay;
+		}
+		return damage;
+	}
+
 	public void Execute(){
 		Debug.Log("Executing");
-		level.current_boss_health = level.current_boss_health - 1;
+		int damage = 0;
+		damage += HandleAttack(p1);
+		damage += HandleAttack(p2);
+		damage += HandleAttack(p3);
+		damage += HandleAttack(p4);
+		level.DamageBoss(damage);
+		level.DamagePlayers(5);
 	}
 }
 
@@ -65,10 +100,21 @@ public class Level {
 
 	public Level(){
 		boss_name = "Test";
-		total_boss_health = 5;
-		current_boss_health = 4;
-		total_party_health = 10;
-		current_party_health = 8;
+		total_boss_health = 100;
+		current_boss_health = 100;
+		total_party_health = 50;
+		current_party_health = 50;
+	}
+
+	public void DamageBoss(int damage){
+		current_boss_health -= damage;
+	}
+
+	public void DamagePlayers(int damage){
+		current_party_health -= damage;
+		if(current_party_health > total_party_health){
+			current_party_health = total_party_health;
+		}
 	}
 }
 
@@ -91,15 +137,25 @@ public class Attack {
 }
 
 public class Person {
-	string name;
-	int basic_attack;
-	int special_attack;
-	string special_attack_type;
+	public string name;
+	public int basic_attack;
+	public int special_attack;
+	public string special_attack_type;
+	public int delay;
+	public int current_delay = 0;
 
-	public Person(string n, int ba, int sa, string sat){
+	public Person(string n, int ba, int sa, string sat, int d){
 		name = n;
 		basic_attack = ba;
 		special_attack = sa;
 		special_attack_type = sat;
+		delay = d;
+	}
+}
+
+// Thank you http://answers.unity3d.com/questions/809412/is-there-a-better-way-to-access-the-single-active.html
+public static class ToggleGroupExtension{
+	public static Toggle GetActive(this ToggleGroup aGroup){
+		return aGroup.ActiveToggles().FirstOrDefault();
 	}
 }
