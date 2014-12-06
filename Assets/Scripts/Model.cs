@@ -46,3 +46,16 @@ public class Level {
 		current_party_health = 8;
 	}
 }
+
+public class Attack {
+	public float max_percent;
+	public float min_percent;
+	public float chance;
+	public int priority;
+	public int damage;
+	public string status;
+
+	public Attack(){
+
+	}
+}
