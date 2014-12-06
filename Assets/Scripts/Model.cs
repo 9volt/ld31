@@ -60,14 +60,16 @@ public class Model : MonoBehaviour {
 			boss_cooldown.text = null;
 		}
 		if(level.current_party_health <= 0){
-			win_text.text = "YOU LOSE :(";
+			win_text.text = "Try Again :(";
 			win_text.gameObject.SetActive(true);
 		}
 	}
 
 	public void Restart(){
 		win_text.gameObject.SetActive(false);
-		floor_num = 0;
+		if(floor_num >= floors.Count){
+			floor_num = 0;
+		}
 		LoadFloor(floor_num);
 	}
 
@@ -93,38 +95,36 @@ public class Model : MonoBehaviour {
 
 		bossHealth.maxValue = level.total_boss_health;
 		partyHealth.maxValue = level.total_party_health;
+		level.current_party_health = level.total_party_health;
 	}
 
 	void PopulateFloors(){
 		floors = new List<Floor>();
 		// Declare Floors and Boss Attacks
 		Floor f = new Floor("trash1_lizard", 50);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 20, "delayed attack", 1, 5));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 15, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss1_lizardperson", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash2_mimic", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 40, "It's a trap", 0, 99));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 15, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss2_bandit", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 40, "It's a trap", 0, 99));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 25, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash3_snakes", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss3_snake_gorgon_girl", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
@@ -170,8 +170,9 @@ public class Model : MonoBehaviour {
 			if(level.current_boss_health <= 0){
 				floor_num++;
 				LoadFloor(floor_num);
+			} else {
+				level.BossAttack();
 			}
-			level.BossAttack();
 		}
 	}
 }
