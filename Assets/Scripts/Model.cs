@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
 public class Model : MonoBehaviour {
 	Level level;
-	Slider bossHealth;
-	Slider partyHealth;
+	public Slider bossHealth;
+	public Slider partyHealth;
+	public Text boss_cooldown;
 
-	GameObject p1;
-	GameObject p2;
-	GameObject p3;
-	GameObject p4;
+	public GameObject p1;
+	public GameObject p2;
+	public GameObject p3;
+	public GameObject p4;
 
 	GameObject b1;
 	GameObject b2;
@@ -24,19 +26,16 @@ public class Model : MonoBehaviour {
 	Person witch = new Person("witch", 4, 0, "chain_break", 5);
 	Person archer = new Person("archer", 3, 2, "interrupt", 2);
 
+	public List<Floor> floors;
+
 	// Use this for initialization
 	void Start () {
-		level = new Level();
-		bossHealth = GameObject.FindGameObjectWithTag("BossHealth").GetComponent<Slider>();
-		partyHealth = GameObject.FindGameObjectWithTag("PartyHealth").GetComponent<Slider>();
+		PopulateFloors();
+		level = new Level(floors[0]);
 
-		p1 = GameObject.FindGameObjectWithTag("p1");
 		p1.GetComponent<PartyMember>().me = man;
-		p2 = GameObject.FindGameObjectWithTag("p2");
 		p2.GetComponent<PartyMember>().me = boy;
-		p3 = GameObject.FindGameObjectWithTag("p3");
 		p3.GetComponent<PartyMember>().me = witch;
-		p4 = GameObject.FindGameObjectWithTag("p4");
 		p4.GetComponent<PartyMember>().me = archer;
 
 		bossHealth.maxValue = level.total_boss_health;
@@ -47,12 +46,26 @@ public class Model : MonoBehaviour {
 	void Update () {
 		bossHealth.value = level.current_boss_health;
 		partyHealth.value = level.current_party_health;
+		if(level.current_boss_delay > 0){
+			boss_cooldown.text = level.current_boss_delay.ToString();
+		} else {
+			boss_cooldown.text = null;
+		}
+	}
+
+	void PopulateFloors(){
+		floors = new List<Floor>();
+		// Declare Floors and Boss Attacks
+		Floor f = new Floor("test", 100);
+		f.AddAttack(new Attack(.25, 0.0, 1.0, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5, 0.0, 0.5, 2, 15, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0, 0.0, 1.0, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
 	}
 
 	int HandleAttack(GameObject p){
 		string attack_type = p.GetComponent<ToggleGroup>().GetActive().name;
 		Person person = p.GetComponent<PartyMember>().me;
-		Debug.Log(attack_type);
 		int damage = 0;
 		// Lower delay
 		if(person.current_delay > 0) {
@@ -65,11 +78,13 @@ public class Model : MonoBehaviour {
 			damage = person.special_attack;
 			switch(person.special_attack_type){
 			case "heal":
-				Debug.Log("Heal");
 				level.DamagePlayers(-25);
 				break;
+			case "interrupt":
+				level.current_boss_delay = 0;
+				level.delayed_attack = null;
+				break;
 			default:
-				Debug.Log("Special");
 				break;
 			}
 			person.current_delay = person.delay;
@@ -78,14 +93,13 @@ public class Model : MonoBehaviour {
 	}
 
 	public void Execute(){
-		Debug.Log("Executing");
 		int damage = 0;
 		damage += HandleAttack(p1);
 		damage += HandleAttack(p2);
 		damage += HandleAttack(p3);
 		damage += HandleAttack(p4);
 		level.DamageBoss(damage);
-		level.DamagePlayers(5);
+		level.BossAttack();
 	}
 }
 
@@ -94,16 +108,48 @@ public class Level {
 	public string boss_name;
 	public int total_boss_health;
 	public int current_boss_health;
+	public int current_boss_delay;
+	public Attack delayed_attack;
 
 	public int total_party_health;
 	public int current_party_health;
 
-	public Level(){
-		boss_name = "Test";
-		total_boss_health = 100;
-		current_boss_health = 100;
+	public Floor floor;
+
+	public Level(Floor f){
+		boss_name = f.name;
+		total_boss_health = f.health;
+		current_boss_health = f.health;
+		floor = f;
 		total_party_health = 50;
 		current_party_health = 50;
+	}
+
+	public void BossAttack(){
+		if(current_boss_delay > 0){
+			current_boss_delay--;
+			if(current_boss_delay == 0){
+				DamagePlayers(delayed_attack.damage);
+				delayed_attack = null;
+			}
+		} else {
+			foreach(Attack a in floor.attacks){
+				double cur_percent = (double)current_boss_health / (double)total_boss_health;
+				double rand = .2;
+				if(cur_percent <= a.max_percent && cur_percent >= a.min_percent && rand < a.chance && a.cur_cooldown == 0){
+					Debug.Log(a.status);
+					a.cur_cooldown = a.cooldown;
+					if(a.delay > 0){
+						delayed_attack = a;
+						current_boss_delay = a.delay;
+					} else {
+						DamagePlayers(a.damage);
+					}
+					return;
+				}
+			}
+		}
+		floor.LowerCooldowns();
 	}
 
 	public void DamageBoss(int damage){
@@ -118,21 +164,50 @@ public class Level {
 	}
 }
 
+public class Floor{
+	public List<Attack> attacks = new List<Attack>();
+	public string name;
+	public int health;
+
+	public Floor(string n, int h){
+		name = n;
+		health = h;
+	}
+
+	public void AddAttack(Attack a){
+		attacks.Add(a);
+		attacks = attacks.OrderBy(x => x.priority).ToList();
+	}
+
+	public void LowerCooldowns(){
+		foreach(Attack a in attacks){
+			if(a.cur_cooldown > 0){
+				a.cur_cooldown--;
+			}
+		}
+	}
+}
+
 public class Attack {
-	public float max_percent;
-	public float min_percent;
-	public float chance;
+	public double max_percent;
+	public double min_percent;
+	public double chance;
 	public int priority;
 	public int damage;
 	public string status;
+	public int delay;
+	public int cooldown;
+	public int cur_cooldown = 0;
 
-	public Attack(float max, float min, float cha, int prio, int dam, string sta){
+	public Attack(double max, double min, double cha, int prio, int dam, string sta, int del, int cool){
 		max_percent = max;
 		min_percent = min;
 		chance = cha;
 		priority = prio;
 		damage = dam;
 		status = sta;
+		delay = del;
+		cooldown = cool;
 	}
 }
 
