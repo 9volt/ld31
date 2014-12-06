@@ -57,9 +57,9 @@ public class Model : MonoBehaviour {
 		floors = new List<Floor>();
 		// Declare Floors and Boss Attacks
 		Floor f = new Floor("test", 100);
-		f.AddAttack(new Attack(.25, 0.0, 1.0, 1, 50, "delayed attack", 2, 5));
-		f.AddAttack(new Attack(0.5, 0.0, 0.5, 2, 15, "strong attack", 0, 1));
-		f.AddAttack(new Attack(1.0, 0.0, 1.0, 5, 5, "basic attack", 0, 0));
+		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 	}
 
@@ -134,8 +134,8 @@ public class Level {
 			}
 		} else {
 			foreach(Attack a in floor.attacks){
-				double cur_percent = (double)current_boss_health / (double)total_boss_health;
-				double rand = .2;
+				float cur_percent = (float)current_boss_health / (float)total_boss_health;
+				float rand = Random.value;
 				if(cur_percent <= a.max_percent && cur_percent >= a.min_percent && rand < a.chance && a.cur_cooldown == 0){
 					Debug.Log(a.status);
 					a.cur_cooldown = a.cooldown;
@@ -189,9 +189,9 @@ public class Floor{
 }
 
 public class Attack {
-	public double max_percent;
-	public double min_percent;
-	public double chance;
+	public float max_percent;
+	public float min_percent;
+	public float chance;
 	public int priority;
 	public int damage;
 	public string status;
@@ -199,7 +199,7 @@ public class Attack {
 	public int cooldown;
 	public int cur_cooldown = 0;
 
-	public Attack(double max, double min, double cha, int prio, int dam, string sta, int del, int cool){
+	public Attack(float max, float min, float cha, int prio, int dam, string sta, int del, int cool){
 		max_percent = max;
 		min_percent = min;
 		chance = cha;
