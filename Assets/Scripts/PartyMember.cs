@@ -28,9 +28,11 @@ public class PartyMember : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(!bench){
-			special_toggle.interactable = me.current_delay == 0;
+			//special_toggle.interactable = me.current_delay == 0;
 			if(special_toggle.interactable == false) {
-				cooldown.text = me.current_delay.ToString();
+				if(me.current_delay != 0){
+					cooldown.text = me.current_delay.ToString();
+				}
 				attack_toggle.isOn = true;
 				special_toggle.isOn = false;
 			} else {

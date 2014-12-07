@@ -14,6 +14,7 @@ TagManager:
   - b3
   - b4
   - drag_target
+  - slock
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

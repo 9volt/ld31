@@ -21,6 +21,7 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	}
 	
 	public void OnPointerDown(PointerEventData dt) {
+		drag_targets = GameObject.FindGameObjectsWithTag("drag_target");
 		if(!model.animating){
 			isMouseDown = true;
 			startPosition = target.position;
