@@ -9,14 +9,14 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	private Vector3 startPosition;
 	public bool shouldReturn;
 	GameObject[] drag_targets;
-	Camera camera;
+	Camera cam;
 	PartyMember pm;
 	
 	// Use this for initialization
 	void Start () {
 		drag_targets = GameObject.FindGameObjectsWithTag("drag_target");
 		pm = gameObject.GetComponentInParent<PartyMember>();
-		camera = Camera.main;
+		cam = Camera.main;
 	}
 	
 	public void OnPointerDown(PointerEventData dt) {
@@ -29,7 +29,7 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
 		foreach(GameObject go in drag_targets){
 			RectTransform rc = go.GetComponent<RectTransform>();
-			if(RectTransformUtility.RectangleContainsScreenPoint(rc, Input.mousePosition, camera)){
+			if(RectTransformUtility.RectangleContainsScreenPoint(rc, Input.mousePosition, cam)){
 				pm.SetPerson(go.GetComponent<PartyMember>().Swap(pm.me));
 			}
 		}
@@ -42,7 +42,7 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	// Update is called once per frame
 	void Update () {
 		if (isMouseDown) {
-			Vector3 mouse_pos = camera.ScreenToWorldPoint(Input.mousePosition);
+			Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
 			mouse_pos.z = target.position.z;
 			target.position = mouse_pos;
 		}
