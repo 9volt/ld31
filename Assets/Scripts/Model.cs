@@ -5,10 +5,14 @@ using UnityEngine.UI;
 using System.Linq;
 
 public class Model : MonoBehaviour {
+	public bool animating;
+	public GameObject last_attacker;
+	public int last_attacker_num;
 	Level level;
 	public int floor_num;
 	public Slider bossHealth;
 	public Slider partyHealth;
+	public GameObject attack_button;
 	public Text boss_cooldown;
 	public Text win_text;
 	public Image boss_image;
@@ -78,6 +82,37 @@ public class Model : MonoBehaviour {
 			win_text.text = "Try Again :(";
 			win_text.gameObject.SetActive(true);
 		}
+
+		if(animating){
+			if(last_attacker.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("slide_right_p1")){
+				if(last_attacker_num == 1 && p2.activeSelf){
+					last_attacker = p2;
+					last_attacker_num = 2;
+					level.DamageBoss(HandleAttack(p2));
+					last_attacker.GetComponent<Animator>().SetTrigger("attack");
+				} else if(last_attacker_num == 2 && p3.activeSelf){
+					last_attacker = p3;
+					last_attacker_num = 3;
+					level.DamageBoss(HandleAttack(p3));
+					last_attacker.GetComponent<Animator>().SetTrigger("attack");
+				} else if(last_attacker_num == 3 && p4.activeSelf){
+					last_attacker = p4;
+					last_attacker_num = 4;
+					level.DamageBoss(HandleAttack(p4));
+					last_attacker.GetComponent<Animator>().SetTrigger("attack");
+				} else {
+					if(level.current_boss_health <= 0){
+						floor_num++;
+						animating = false;
+						LoadFloor(floor_num);
+					} else {
+						level.BossAttack();
+						animating = false;
+					}
+				}
+			}
+		}
+		attack_button.SetActive(!animating);
 	}
 
 	public void Restart(){
@@ -245,24 +280,28 @@ public class Model : MonoBehaviour {
 
 	public void Execute(){
 		if(level.current_party_health > 0){
-			int damage = 0;
-			damage += HandleAttack(p1);
-			if(p2.activeSelf){
-				damage += HandleAttack(p2);
-			}
-			if(p3.activeSelf){
-				damage += HandleAttack(p3);
-			}
-			if(p4.activeSelf){
-				damage += HandleAttack(p4);
-			}
-			level.DamageBoss(damage);
-			if(level.current_boss_health <= 0){
-				floor_num++;
-				LoadFloor(floor_num);
-			} else {
-				level.BossAttack();
-			}
+			level.DamageBoss(HandleAttack(p1));
+			p1.GetComponent<Animator>().SetTrigger("attack");
+			animating = true;
+			last_attacker = p1;
+			last_attacker_num = 1;
+//			if(p2.activeSelf){
+//				damage += HandleAttack(p2);
+//				p2.GetComponent<Animator>().SetTrigger("attack");
+//			}
+//			if(p3.activeSelf){
+//				damage += HandleAttack(p3);
+//			}
+//			if(p4.activeSelf){
+//				damage += HandleAttack(p4);
+//			}
+//			level.DamageBoss(damage);
+//			if(level.current_boss_health <= 0){
+//				floor_num++;
+//				LoadFloor(floor_num);
+//			} else {
+//				level.BossAttack();
+//			}
 		}
 	}
 }

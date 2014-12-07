@@ -396,8 +396,8 @@ RectTransform:
   - {fileID: 1434515266}
   m_Father: {fileID: 2097826024}
   m_RootOrder: 2
-  m_AnchorMin: {x: .339000016, y: .947000027}
-  m_AnchorMax: {x: .965000033, y: .983250082}
+  m_AnchorMin: {x: .246000007, y: .933396459}
+  m_AnchorMax: {x: .767353177, y: .971198261}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -478,8 +478,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 59818176}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: .25}
-  m_AnchorMax: {x: 1, y: .75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -655,6 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 124101953}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!1 &136748740
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,10 +768,10 @@ RectTransform:
   - {fileID: 1375215423}
   m_Father: {fileID: 714576668}
   m_RootOrder: 1
-  m_AnchorMin: {x: .135188788, y: .93233341}
-  m_AnchorMax: {x: .930000067, y: .968833387}
-  m_AnchoredPosition: {x: -1.52587891e-05, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: .0741785392, y: .936000049}
+  m_AnchorMax: {x: .958535731, y: .976603627}
+  m_AnchoredPosition: {x: .5, y: .5}
+  m_SizeDelta: {x: -1, y: -1}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &186284665
 MonoBehaviour:
@@ -1317,8 +1318,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 186284664}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: .25}
-  m_AnchorMax: {x: 1, y: .75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -1575,6 +1576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 808788371}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!114 &808788374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,6 +1682,7 @@ GameObject:
   - 114: {fileID: 986757033}
   - 114: {fileID: 986757032}
   - 114: {fileID: 986757035}
+  - 95: {fileID: 986757036}
   m_Layer: 5
   m_Name: Player2
   m_TagString: drag_target
@@ -1768,6 +1771,21 @@ MonoBehaviour:
   attack_image: {fileID: 465781023}
   special_image: {fileID: 1494002296}
   bench: 0
+--- !u!95 &986757036
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 986757030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8116880aaa58f954b8ffab3c389f9503, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1025873271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,6 +2044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1098183772}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!114 &1098183775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,8 +2747,8 @@ RectTransform:
   - {fileID: 435762138}
   m_Father: {fileID: 186284664}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: .25}
-  m_AnchorMax: {x: 1, y: .75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -2910,8 +2929,8 @@ RectTransform:
   - {fileID: 1105734484}
   m_Father: {fileID: 59818176}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: .25}
-  m_AnchorMax: {x: 1, y: .75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -2993,6 +3012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1489421275}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!1 &1494002294
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,6 +3156,7 @@ GameObject:
   - 114: {fileID: 1505337272}
   - 114: {fileID: 1505337271}
   - 114: {fileID: 1505337274}
+  - 95: {fileID: 1505337275}
   m_Layer: 5
   m_Name: Player4
   m_TagString: drag_target
@@ -3224,6 +3245,21 @@ MonoBehaviour:
   attack_image: {fileID: 406519807}
   special_image: {fileID: 1025873273}
   bench: 0
+--- !u!95 &1505337275
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1505337269}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8116880aaa58f954b8ffab3c389f9503, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1541677894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3272,7 @@ GameObject:
   - 114: {fileID: 1541677897}
   - 114: {fileID: 1541677896}
   - 114: {fileID: 1541677899}
+  - 95: {fileID: 1541677900}
   m_Layer: 5
   m_Name: Player3
   m_TagString: drag_target
@@ -3324,6 +3361,21 @@ MonoBehaviour:
   attack_image: {fileID: 526266370}
   special_image: {fileID: 2016970850}
   bench: 0
+--- !u!95 &1541677900
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1541677894}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8116880aaa58f954b8ffab3c389f9503, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1560321969
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,6 +3559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1571777604}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!114 &1571777607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3740,6 +3793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1701782515}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!1 &1739307902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,6 +4352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1837484030}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!114 &1837484033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4621,6 +4676,7 @@ GameObject:
   - 114: {fileID: 1927811857}
   - 114: {fileID: 1927811855}
   - 114: {fileID: 1927811856}
+  - 95: {fileID: 1927811859}
   m_Layer: 5
   m_Name: Player1
   m_TagString: drag_target
@@ -4709,6 +4765,21 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1405714723}
   m_GameObject: {fileID: 1927811853}
+--- !u!95 &1927811859
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1927811853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8116880aaa58f954b8ffab3c389f9503, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1972565767
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,6 +4858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1972565768}
   shouldReturn: 1
+  model: {fileID: 2124389809}
 --- !u!1 &1997512279
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,9 +5227,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adaa386cc27fdde439fcfd12e176be46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animating: 0
+  last_attacker: {fileID: 0}
+  last_attacker_num: 0
   floor_num: 0
   bossHealth: {fileID: 186284665}
   partyHealth: {fileID: 59818177}
+  attack_button: {fileID: 1204790369}
   boss_cooldown: {fileID: 881370949}
   win_text: {fileID: 109254926}
   boss_image: {fileID: 1077953566}

@@ -11,6 +11,7 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	GameObject[] drag_targets;
 	Camera cam;
 	PartyMember pm;
+	public Model model;
 	
 	// Use this for initialization
 	void Start () {
@@ -20,28 +21,31 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	}
 	
 	public void OnPointerDown(PointerEventData dt) {
-		isMouseDown = true;
-		startPosition = target.position;
+		if(!model.animating){
+			isMouseDown = true;
+			startPosition = target.position;
+		}
 	}
 	
 	public void OnPointerUp(PointerEventData dt) {
-		isMouseDown = false;
-
-		foreach(GameObject go in drag_targets){
-			RectTransform rc = go.GetComponent<RectTransform>();
-			if(RectTransformUtility.RectangleContainsScreenPoint(rc, Input.mousePosition, cam)){
-				pm.SetPerson(go.GetComponent<PartyMember>().Swap(pm.me));
+		if(!model.animating && isMouseDown){
+			isMouseDown = false;
+			foreach(GameObject go in drag_targets){
+				RectTransform rc = go.GetComponent<RectTransform>();
+				if(RectTransformUtility.RectangleContainsScreenPoint(rc, Input.mousePosition, cam)){
+					pm.SetPerson(go.GetComponent<PartyMember>().Swap(pm.me));
+				}
 			}
-		}
 
- 		if (shouldReturn) {
-			target.position = startPosition;
+	 		if (shouldReturn) {
+				target.position = startPosition;
+			}
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (isMouseDown) {
+		if (isMouseDown && !model.animating) {
 			Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
 			mouse_pos.z = target.position.z;
 			target.position = mouse_pos;
