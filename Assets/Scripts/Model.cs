@@ -129,6 +129,46 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
+		f = new Floor("trash4_bull", 100);
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("boss4_minotaur", 100);
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("trash5_cheetah", 100);
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("boss5_catgirl", 100);
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("trash6_ogre", 100);
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("boss6_cyclops", 100);
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("trash7_spider", 100);
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
+		f = new Floor("boss7_spider_girl", 100);
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		floors.Add(f);
 	}
 
 	int HandleAttack(GameObject p){

@@ -1382,8 +1382,8 @@ RectTransform:
   - {fileID: 881370948}
   m_Father: {fileID: 1318148123}
   m_RootOrder: 1
-  m_AnchorMin: {x: .597000003, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: .403000027, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -1537,8 +1537,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 714576668}
   m_RootOrder: 2
-  m_AnchorMin: {x: .135188788, y: .800000012}
-  m_AnchorMax: {x: .350543231, y: .93233341}
+  m_AnchorMin: {x: .682892859, y: .800000012}
+  m_AnchorMax: {x: .846357226, y: .918000042}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
@@ -1851,7 +1851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 08b14cd72c4daf048981691d04372a0b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4692,8 +4692,8 @@ RectTransform:
   - {fileID: 1505337270}
   m_Father: {fileID: 1318148123}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: .597000003, y: 1}
+  m_AnchorMin: {x: .403000027, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}

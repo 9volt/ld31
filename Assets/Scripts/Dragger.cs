@@ -6,7 +6,6 @@ using System.Collections;
 public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	public Transform target;
 	private bool isMouseDown = false;
-	private Vector3 startMousePosition;
 	private Vector3 startPosition;
 	public bool shouldReturn;
 	GameObject[] drag_targets;
@@ -23,7 +22,6 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	public void OnPointerDown(PointerEventData dt) {
 		isMouseDown = true;
 		startPosition = target.position;
-		startMousePosition = Input.mousePosition;
 	}
 	
 	public void OnPointerUp(PointerEventData dt) {
