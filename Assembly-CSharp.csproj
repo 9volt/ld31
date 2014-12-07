@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Dragger.cs" />
      <Compile Include="Assets\Scripts\Model.cs" />
+     <Compile Include="Assets\Scripts\OnTouchDown.cs" />
      <Compile Include="Assets\Scripts\PartyMember.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
