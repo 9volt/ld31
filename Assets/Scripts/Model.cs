@@ -18,16 +18,17 @@ public class Model : MonoBehaviour {
 	public GameObject p3;
 	public GameObject p4;
 
-	GameObject b1;
-	GameObject b2;
-	GameObject b3;
-	GameObject b4;
+	public GameObject b1;
+	public GameObject b2;
+	public GameObject b3;
+	public GameObject b4;
 
 
 	Person sword_man = new Person("sword_man", 3, 6, "strong_sword", 3);
 	Person healer = new Person("healer", 1, 0, "heal", 2);
 	Person witch = new Person("witch", 4, 0, "chain_break", 5);
 	Person archer = new Person("archer", 3, 2, "interrupt", 2);
+	Person mage = new Person("time_mage", 3, 0, "time_freeze", 4);
 
 	public List<Floor> floors;
 	public List<Person> party_members;
@@ -40,13 +41,18 @@ public class Model : MonoBehaviour {
 		p2.GetComponent<PartyMember>().SetPerson(healer);
 		p3.GetComponent<PartyMember>().SetPerson(witch);
 		p4.GetComponent<PartyMember>().SetPerson(archer);
-	
 
+		b1.GetComponent<PartyMember>().SetPerson(mage);
+		b2.GetComponent<PartyMember>().SetPerson(mage);
+		b3.GetComponent<PartyMember>().SetPerson(mage);
+		b4.GetComponent<PartyMember>().SetPerson(mage);
+		
 		party_members = new List<Person>();
 		party_members.Add(sword_man);
 		party_members.Add(healer);
 		party_members.Add(witch);
 		party_members.Add(archer);
+		party_members.Add(mage);
 
 		LoadFloor(floor_num);
 	}
