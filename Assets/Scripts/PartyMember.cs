@@ -7,9 +7,19 @@ public class PartyMember : MonoBehaviour {
 	public Toggle special_toggle;
 	public Toggle attack_toggle;
 	public Text cooldown;
+	public Image avatar;
+	public Image attack_image;
+	public Image special_image;
 	// Use this for initialization
 	void Start () {
 		
+	}
+
+	public void SetPerson(Person p){
+		me = p;
+		avatar.sprite = Resources.Load<Sprite>(me.name);
+		attack_image.sprite = Resources.Load<Sprite>(me.name + "_attack");
+		special_image.sprite = Resources.Load<Sprite>(me.special_attack_type);
 	}
 	
 	// Update is called once per frame

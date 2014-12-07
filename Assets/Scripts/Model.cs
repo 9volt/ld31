@@ -24,8 +24,8 @@ public class Model : MonoBehaviour {
 	GameObject b4;
 
 
-	Person man = new Person("sword_man", 3, 6, "strong_sword", 3);
-	Person boy = new Person("heal_boy", 1, 0, "heal", 2);
+	Person sword_man = new Person("sword_man", 3, 6, "strong_sword", 3);
+	Person healer = new Person("healer", 1, 0, "heal", 2);
 	Person witch = new Person("witch", 4, 0, "chain_break", 5);
 	Person archer = new Person("archer", 3, 2, "interrupt", 2);
 
@@ -36,14 +36,15 @@ public class Model : MonoBehaviour {
 	void Start () {
 		PopulateFloors();
 
-		p1.GetComponent<PartyMember>().me = man;
-		p2.GetComponent<PartyMember>().me = boy;
-		p3.GetComponent<PartyMember>().me = witch;
-		p4.GetComponent<PartyMember>().me = archer;
+		p1.GetComponent<PartyMember>().SetPerson(sword_man);
+		p2.GetComponent<PartyMember>().SetPerson(healer);
+		p3.GetComponent<PartyMember>().SetPerson(witch);
+		p4.GetComponent<PartyMember>().SetPerson(archer);
+	
 
 		party_members = new List<Person>();
-		party_members.Add(man);
-		party_members.Add(boy);
+		party_members.Add(sword_man);
+		party_members.Add(healer);
 		party_members.Add(witch);
 		party_members.Add(archer);
 
