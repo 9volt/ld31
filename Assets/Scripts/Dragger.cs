@@ -11,15 +11,17 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	public bool shouldReturn;
 	GameObject[] drag_targets;
 	Camera camera;
+	PartyMember pm;
 	
 	// Use this for initialization
 	void Start () {
 		drag_targets = GameObject.FindGameObjectsWithTag("drag_target");
+		pm = gameObject.GetComponentInParent<PartyMember>();
 		camera = Camera.main;
 	}
 	
 	public void OnPointerDown(PointerEventData dt) {
-		isMouseDown = true;	
+		isMouseDown = true;
 		startPosition = target.position;
 		startMousePosition = Input.mousePosition;
 	}
@@ -30,7 +32,7 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 		foreach(GameObject go in drag_targets){
 			RectTransform rc = go.GetComponent<RectTransform>();
 			if(RectTransformUtility.RectangleContainsScreenPoint(rc, Input.mousePosition, camera)){
-				Debug.Log("hit");
+				pm.SetPerson(go.GetComponent<PartyMember>().Swap(pm.me));
 			}
 		}
 
