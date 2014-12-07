@@ -29,6 +29,9 @@ public class Model : MonoBehaviour {
 	Person witch = new Person("witch", 4, 0, "chain_break", 5);
 	Person archer = new Person("archer", 3, 2, "interrupt", 2);
 	Person mage = new Person("time_mage", 3, 0, "time_freeze", 4);
+	Person druid = new Person("druid", 3, 0, "cleanse", 4);
+	Person shield_man = new Person("shield_man", 3, 0, "block", 4);
+	Person rogue = new Person("rogue", 3, 0, "expose_armor", 4);
 
 	public List<Floor> floors;
 	public List<Person> party_members;
@@ -43,9 +46,9 @@ public class Model : MonoBehaviour {
 		p4.GetComponent<PartyMember>().SetPerson(archer);
 
 		b1.GetComponent<PartyMember>().SetPerson(mage);
-		b2.GetComponent<PartyMember>().SetPerson(mage);
-		b3.GetComponent<PartyMember>().SetPerson(mage);
-		b4.GetComponent<PartyMember>().SetPerson(mage);
+		b2.GetComponent<PartyMember>().SetPerson(druid);
+		b3.GetComponent<PartyMember>().SetPerson(shield_man);
+		b4.GetComponent<PartyMember>().SetPerson(rogue);
 		
 		party_members = new List<Person>();
 		party_members.Add(sword_man);
@@ -53,7 +56,12 @@ public class Model : MonoBehaviour {
 		party_members.Add(witch);
 		party_members.Add(archer);
 		party_members.Add(mage);
+		party_members.Add(shield_man);
+		party_members.Add(druid);
+		party_members.Add(rogue);
 
+		
+		
 		LoadFloor(floor_num);
 	}
 	
