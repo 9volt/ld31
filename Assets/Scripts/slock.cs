@@ -18,7 +18,11 @@ public class slock : MonoBehaviour {
 		if(locked && pm.me.name == "witch"){
 			SetUnlock();
 			was_witch = true;
-			special.interactable = true;
+			if(pm.me.current_delay == 0){
+				special.interactable = true;
+			} else {
+				special.interactable = false;
+			}
 		} else if(was_witch && locked && pm.me.name != "witch"){
 			was_witch = false;
 			SetLock();

@@ -17,6 +17,6 @@ public class AttackName : MonoBehaviour {
 	public void SetText(string text){
 		gameObject.GetComponent<Text>().CrossFadeAlpha(1.0f, 0.0f, true);
 		gameObject.GetComponent<Text>().text = text;
-		gameObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 2.0f, true);
+		gameObject.GetComponent<Text>().CrossFadeAlpha(0.0f, 3.0f, true);
 	}
 }
