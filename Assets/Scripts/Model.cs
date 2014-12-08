@@ -30,6 +30,7 @@ public class Model : MonoBehaviour {
 	public Text boss_percent;
 	public Text party_health;
 	public int continues = 0;
+	public Image background;
 
 	public GameObject normal_music;
 	public GameObject boss_music;
@@ -179,8 +180,10 @@ public class Model : MonoBehaviour {
 		case 2:
 			p2.SetActive(true);
 			break;
+
 		case 4:
 			p3.SetActive(true);
+			background.sprite = Resources.Load<Sprite>("cave");
 			break;
 
 		case 6:
@@ -189,18 +192,24 @@ public class Model : MonoBehaviour {
 
 		case 8:
 			b1.SetActive(true);
+			background.sprite = Resources.Load<Sprite>("forrest");
 			break;
 
 		case 10:
 			b2.SetActive(true);
+			background.sprite = Resources.Load<Sprite>("cave");
 			break;
 
 		case 12:
 			b3.SetActive(true);
+			background.sprite = Resources.Load<Sprite>("web");
+
 			break;
 
 		case 14:
 			b4.SetActive(true);
+			background.sprite = Resources.Load<Sprite>("volcano");
+
 			break;
 
 		}
@@ -254,32 +263,32 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss1_lizardperson", 30);
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "Claw Swipe", 0, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 20, "Claw Swipe", 0, 4));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash2_mimic", 40);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 80, "It's a trap", 0, 99));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 30, "Bite", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 30, "Bite", 0, 3));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Boxxed", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss2_bandit", 70);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 80, "Ambushed", 0, 99));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 50, "Ninja Star", 0, 4));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 50, "Ninja Star", 0, 4));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Stab", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash3_snakes", 100);
 		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 30, "Paralyzed", 0, 4, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "Snake Swarm", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 20, "Snake Swarm", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss3_snake_gorgon_girl", 125);
 		f.AddAttack(new Attack(.75f, 0.0f, 1.0f, 1, 25, "Petrifying Gaze", 0, 6, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.75f, 2, 40, "Leer", 0, 3));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 40, "Leer", 0, 3));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Swipe", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash4_bull", 75);
 		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 70, "Charging...", 1, 4, "", "Bull Rush"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "Trample", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 20, "Trample", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Kick", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss4_minotaur", 150);
@@ -290,41 +299,41 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Punch", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash5_cheetah", 100);
-		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 25, "Frenzied Claws", 0, 0));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "Deep Swipe", 0, 2));
+		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 35, "Frenzied Claws", 0, 0));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 20, "Deep Swipe", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Swipe", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss5_catgirl", 150);
 		f.AddAttack(new Attack(.15f, 0.0f, 1.0f, 1, 40, "Frenzied Onslaught", 0, 0));
 		f.AddAttack(new Attack(.75f, 0.0f, 1.0f, 2, 30, "Brain rattle", 0, 6, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.15f, 0.75f, 3, 80, "Bounds back...", 1, 4, "", "Pounce"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 4, 30, "Bite", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.15f, 1.0f, 3, 80, "Bounds back...", 1, 4, "", "Pounce"));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 4, 30, "Bite", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Hiss", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash6_ogre", 100);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 90, "90 Ton Hammer", 0, 99));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "Rock Throw", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 20, "Rock Throw", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Bash", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss6_cyclops", 200);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 1000, "1000 Ton Hammer", 0, 99));
 		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 1000, "Holds hammer up high...", 1, 6, "", "1000 Ton Hammer"));
 		f.AddAttack(new Attack(0.5f, 0.15f, 1.0f, 3, 25, "Earthshattering Stomp", 0, 4, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 4, 70, "Stomp", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 4, 70, "Stomp", 0, 4));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Punch", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash7_spider", 150);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 10, "Spider Bite", 0, 4, "poison"));
-		f.AddAttack(new Attack(1.0f, 0.0f, 0.5f, 2, 30, "Web", 0, 4, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 3, 20, "Spider Swarm", 0, 2));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 2, 25, "Web", 0, 4, "slock"));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 3, 20, "Spider Swarm", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Nibble", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss7_spider_girl", 200);
-		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 25, "Envenomed Fangs", 0, 4, "poison"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 40, "Sticky Web", 0, 8, "slock"));
+		f.AddAttack(new Attack(1.0f, 0.25f, 1.0f, 1, 25, "Envenomed Fangs", 0, 4, "poison"));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 25, "Sticky Web", 0, 8, "slock"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 25, "Feed", 0, 8));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 40, "Stickier Web", 0, 8, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 25, "Bite", 0, 2));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 25, "Stickier Web", 0, 8, "slock"));
+		f.AddAttack(new Attack(0.25f, 0.0f, 1.0f, 5, 30, "Deep Bite", 0, 3));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash8_drake", 200);
@@ -332,16 +341,16 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 2, 100, "Flies up...", 1, 4, "", "Rake"));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Breaths in...", 1, 4, "", "Engulfing Flames"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 20, "Poison Spit", 0, 5, "poison"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 20, "Drake Claws", 0, 2));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 5, 20, "Drake Claws", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss8_dragon", 350);
 		f.AddAttack(new Attack(0.15f, 0.0f, 1.0f, 1, 50, "Dragon's Fire", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 2, 40, "Ferocious Bite", 0, 4));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Takes a deep breath...", 2, 4, "", "World in Flames"));
-		f.AddAttack(new Attack(0.75f, 0.35f, 1.0f, 4, 20, "Poisoned Claws", 0, 5, "poison"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 5, 20, "Terrifying Roar", 0, 4, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.15f, 0.5f, 6, 60, "Dragon's Bite", 0, 3));
+		f.AddAttack(new Attack(0.75f, 0.25f, 1.0f, 4, 10, "Poisoned Claws", 0, 5, "poison"));
+		f.AddAttack(new Attack(0.75f, 0.25f, 1.0f, 5, 20, "Terrifying Roar", 0, 4, "slock"));
+		f.AddAttack(new Attack(0.25f, 0.15f, 1.0f, 6, 60, "Dragon's Bite", 0, 3));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 7, 15, "Rend", 0, 0));
 		floors.Add(f);
 	}

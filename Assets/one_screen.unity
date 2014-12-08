@@ -6601,6 +6601,7 @@ MonoBehaviour:
   boss_percent: {fileID: 2050727087}
   party_health: {fileID: 799348990}
   continues: 0
+  background: {fileID: 1110472790}
   normal_music: {fileID: 2140649757}
   boss_music: {fileID: 309293308}
   victory_music: {fileID: 1781293567}
