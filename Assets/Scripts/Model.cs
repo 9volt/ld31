@@ -213,7 +213,7 @@ public class Model : MonoBehaviour {
 			return;
 		}
 		level = new Level(floors[num], this);
-
+		boss_animator.SetBool("delay", false);
 		Sprite boss_sprite = Resources.Load<Sprite>(level.floor.name);
 		boss_image.sprite = boss_sprite;
 
