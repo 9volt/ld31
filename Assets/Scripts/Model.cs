@@ -287,7 +287,7 @@ public class Model : MonoBehaviour {
 		floors.Add(f);
 		f = new Floor("boss6_cyclops", 200);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 1000, "1000 Ton Hammer", 0, 99));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.75f, 2, 1000, "Holds hammer up high...", 1, 6, "", "1000 Ton Hammer"));
+		f.AddAttack(new Attack(0.5f, 0.0f, 1.0f, 2, 1000, "Holds hammer up high...", 1, 6, "", "1000 Ton Hammer"));
 		f.AddAttack(new Attack(0.5f, 0.15f, 1.0f, 3, 25, "Earthshattering Stomp", 0, 4, "slock"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 4, 70, "Stomp", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Punch", 0, 0));
@@ -301,9 +301,10 @@ public class Model : MonoBehaviour {
 		f = new Floor("boss7_spider_girl", 200);
 		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 30, "Envenomed Fangs - POISONED", 0, 4, "poison"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 40, "Sticky Web", 0, 5, "slock"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 40, "Stickier Web", 0, 5, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 4, 60, "strong attack", 0, 2));
-		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Bite", 0, 0));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 25, "Feed", 0, 5));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 40, "Stickier Web", 0, 5, "slock"));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 60, "strong attack", 0, 2));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash8_drake", 200);
 		f.AddAttack(new Attack(0.25f, 0.0f, 1.0f, 1, 40, "Flame Breath", 0, 0));

@@ -1,17 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Model.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\slock.cs">
     <Files>
-      <File FileName="Assets\Scripts\Model.cs" Line="265" Column="72" />
+      <File FileName="Assets\Scripts\Model.cs" Line="48" Column="59" />
       <File FileName="Assets\Scripts\Dragger.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PartyMember.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\OnTouchDown.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\slock.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\slock.cs" Line="23" Column="12" />
       <File FileName="Assets\Scripts\AttackName.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="slock.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
