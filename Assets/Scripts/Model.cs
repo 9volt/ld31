@@ -29,6 +29,7 @@ public class Model : MonoBehaviour {
 	public Text level_counter;
 	public Text boss_percent;
 	public Text party_health;
+	public int continues = 0;
 
 	public GameObject normal_music;
 	public GameObject boss_music;
@@ -167,6 +168,7 @@ public class Model : MonoBehaviour {
 			floor_num = 0;
 			Application.LoadLevel("one_screen");
 		}
+		continues++;
 		LoadFloor(floor_num);
 	}
 
@@ -208,7 +210,13 @@ public class Model : MonoBehaviour {
 		if(floor_num >= floors.Count) {
 			boss_music.SetActive(false);
 			victory_music.SetActive(true);
-			win_text.text = "YOU WIN!!";
+			if(continues == 0){
+				win_text.text = "YOU WIN!!\nThanks for Playing\nNo continues, good job.";
+			} else if(continues == 1){
+				win_text.text = "YOU WIN!!\nThanks for Playing\nUsed " + continues.ToString() + " continue";
+			} else {
+				win_text.text = "YOU WIN!!\nThanks for Playing\nUsed " + continues.ToString() + " continues";
+			}
 			win_text.gameObject.SetActive(true);
 			return;
 		}
