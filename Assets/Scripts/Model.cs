@@ -19,7 +19,6 @@ public class Model : MonoBehaviour {
 	public AttackName boss_attack;
 	public Text win_text;
 	public Image boss_image;
-	bool freeze_time = false;
 	public bool blocking = false;
 	bool exposed = false;
 	public bool poisoned = false;
@@ -41,7 +40,7 @@ public class Model : MonoBehaviour {
 	Person healer = new Person("healer", 1, 0, "heal", 2);
 	Person witch = new Person("witch", 4, 0, "chain_break", 5);
 	Person archer = new Person("archer", 3, 4, "interrupt", 2);
-	Person mage = new Person("time_mage", 4, 0, "time_freeze", 4);
+	Person mage = new Person("time_mage", 4, 0, "time_freeze", 5);
 	Person druid = new Person("druid", 3, 0, "cleanse", 4);
 	Person shield_man = new Person("shield_man", 3, 0, "block", 4);
 	Person rogue = new Person("rogue", 4, 4, "expose_armor", 4);
@@ -117,13 +116,12 @@ public class Model : MonoBehaviour {
 						floor_num++;
 						animating = false;
 						LoadFloor(floor_num);
-					} else if(!freeze_time) {
+					} else {
 						level.BossAttack();
 					}
 					if(poisoned){
 						level.DamagePlayers(poison_damage);
 					}
-					freeze_time = false;
 					animating = false;
 					blocking = false;
 				}
@@ -136,6 +134,7 @@ public class Model : MonoBehaviour {
 		win_text.gameObject.SetActive(false);
 		if(floor_num >= floors.Count){
 			floor_num = 0;
+			Application.LoadLevel("one_screen");
 		}
 		LoadFloor(floor_num);
 	}
@@ -316,8 +315,12 @@ public class Model : MonoBehaviour {
 				}
 				break;
 			case "time_freeze":
-				pm.SetDamage("Freeze Time");
-				freeze_time = true;
+				pm.SetDamage("Time Warp");
+				foreach(Person pers in party_members){
+					if(pers.name != "time_mage"){
+						pers.current_delay = 0;
+					}
+				}
 				break;
 			case "block":
 				pm.SetDamage("Block");
