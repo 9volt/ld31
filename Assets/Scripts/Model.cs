@@ -16,13 +16,15 @@ public class Model : MonoBehaviour {
 	public Slider partyHealth;
 	public GameObject attack_button;
 	public Text boss_cooldown;
+	public AttackName boss_attack;
 	public Text win_text;
 	public Image boss_image;
 	bool freeze_time = false;
-	bool blocking = false;
+	public bool blocking = false;
 	bool exposed = false;
-	bool poisoned = false;
+	public bool poisoned = false;
 	public int poison_damage = 10;
+	public Image poison_icon;
 
 	public GameObject p1;
 	public GameObject p2;
@@ -42,7 +44,7 @@ public class Model : MonoBehaviour {
 	Person mage = new Person("time_mage", 4, 0, "time_freeze", 4);
 	Person druid = new Person("druid", 3, 0, "cleanse", 4);
 	Person shield_man = new Person("shield_man", 3, 0, "block", 4);
-	Person rogue = new Person("rogue", 4, 0, "expose_armor", 4);
+	Person rogue = new Person("rogue", 4, 4, "expose_armor", 4);
 
 	public List<Floor> floors;
 	public List<Person> party_members;
@@ -57,8 +59,8 @@ public class Model : MonoBehaviour {
 		p4.GetComponent<PartyMember>().SetPerson(archer);
 
 		b1.GetComponent<PartyMember>().SetPerson(mage);
-		b2.GetComponent<PartyMember>().SetPerson(druid);
-		b3.GetComponent<PartyMember>().SetPerson(shield_man);
+		b2.GetComponent<PartyMember>().SetPerson(shield_man);
+		b3.GetComponent<PartyMember>().SetPerson(druid);
 		b4.GetComponent<PartyMember>().SetPerson(rogue);
 		
 		party_members = new List<Person>();
@@ -80,6 +82,7 @@ public class Model : MonoBehaviour {
 		if(god_mode){
 			sword_man.special_attack = god_strength;
 		}
+		poison_icon.enabled = poisoned;
 		bossHealth.value = level.current_boss_health;
 		partyHealth.value = level.current_party_health;
 		if(level.current_boss_delay > 0){
@@ -115,7 +118,7 @@ public class Model : MonoBehaviour {
 						animating = false;
 						LoadFloor(floor_num);
 					} else if(!freeze_time) {
-						level.BossAttack(blocking);
+						level.BossAttack();
 					}
 					if(poisoned){
 						level.DamagePlayers(poison_damage);
@@ -172,7 +175,7 @@ public class Model : MonoBehaviour {
 			win_text.gameObject.SetActive(true);
 			return;
 		}
-		level = new Level(floors[num]);
+		level = new Level(floors[num], this);
 
 		Sprite boss_sprite = Resources.Load<Sprite>(level.floor.name);
 		boss_image.sprite = boss_sprite;
@@ -211,76 +214,80 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 15, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("boss2_bandit", 100);
+		f = new Floor("boss2_bandit", 70);
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 40, "It's a trap", 0, 99));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 25, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash3_snakes", 100);
-		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 15, "slock", 0, 3));
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 15, "Paralyzed", 0, 3, "slock"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss3_snake_gorgon_girl", 125);
-		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 15, "slock", 0, 5));
+		f.AddAttack(new Attack(.75f, 0.0f, 1.0f, 1, 15, "Petrifying Gaze", 0, 5, "slock"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.75f, 2, 25, "strong attack", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash4_bull", 75);
-		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "Charging...", 1, 3, "", "Bull Rush"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss4_minotaur", 150);
-		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f.AddAttack(new Attack(.75f, 0.0f, 1.0f, 1, 50, "Charging...", 2, 4, "", "Minotaur Rush"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash5_cheetah", 100);
-		f.AddAttack(new Attack(.15f, 0.0f, 1.0f, 1, 25, "huge attack", 0, 0));
+		f.AddAttack(new Attack(.25f, 0.0f, 1.0f, 1, 25, "Frenzied Claws", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("boss5_catgirl", 100);
-		f.AddAttack(new Attack(.15f, 0.0f, 1.0f, 1, 40, "huge attack", 0, 0));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
+		f = new Floor("boss5_catgirl", 150);
+		f.AddAttack(new Attack(.15f, 0.0f, 1.0f, 1, 40, "Frenzied Onslaught", 0, 0));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 20, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash6_ogre", 100);
-		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 45, "100 Ton Hammer", 0, 99));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("boss6_cyclops", 100);
-		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f = new Floor("boss6_cyclops", 200);
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 100, "1000 Ton Hammer", 0, 99));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("trash7_spider", 100);
-		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f = new Floor("trash7_spider", 150);
+		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 5, "Spider Bite", 0, 3, "poison"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("boss7_spider_girl", 100);
-		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
+		f = new Floor("boss7_spider_girl", 200);
+		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 15, "Envenomed Fangs", 0, 5, "poison"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("trash8_drake", 100);
-		f.AddAttack(new Attack(.75f, 0.25f, 1.0f, 1, 35, "delayed attack", 1, 3));
+		f = new Floor("trash8_drake", 200);
+		f.AddAttack(new Attack(0.25f, 0.0f, 1.0f, 1, 20, "Flame Breath", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 10, "strong attack", 0, 1));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
 		floors.Add(f);
-		f = new Floor("boss8_dragon", 100);
-		f.AddAttack(new Attack(.30f, 0.0f, 1.0f, 1, 50, "delayed attack", 2, 5));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 2, 35, "strong attack", 0, 1));
-		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 5, "basic attack", 0, 0));
+		f = new Floor("boss8_dragon", 500);
+		f.AddAttack(new Attack(0.15f, 0.0f, 1.0f, 1, 25, "Dragon's Fire", 0, 0));
+		f.AddAttack(new Attack(0.5f, 0.15f, 0.5f, 3, 35, "strong attack", 0, 1));
+		f.AddAttack(new Attack(0.25f, 0.15f, 1.0f, 2, 50, "Takes flight..", 1, 5, "", "Rake"));
+		f.AddAttack(new Attack(0.75f, 0.5f, 1.0f, 4, 10, "Poisoned Claws", 0, 5, "poison"));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "basic attack", 0, 0));
 		floors.Add(f);
 	}
 
 	int HandleAttack(GameObject p){
 		string attack_type = p.GetComponent<ToggleGroup>().GetActive().name;
-		Person person = p.GetComponent<PartyMember>().me;
+		PartyMember pm = p.GetComponent<PartyMember>();
+		Person person = pm.me;
+	
 		int damage = 0;
 		// Lower delay
 		if(person.current_delay > 0) {
@@ -289,34 +296,43 @@ public class Model : MonoBehaviour {
 		// Determine attack type
 		if(attack_type == "Attack") {
 			damage = person.basic_attack;
+			pm.SetDamage(damage.ToString());
 		} else if(attack_type == "Special") {
 			damage = person.special_attack;
 			switch(person.special_attack_type){
 			case "heal":
+				pm.SetDamage("+25");
 				level.DamagePlayers(-25);
 				break;
 			case "interrupt":
+				pm.SetDamage("Interrupt - " + damage.ToString());
 				level.current_boss_delay = 0;
 				level.delayed_attack = null;
 				break;
 			case "chain_break":
+				pm.SetDamage("Free Mind");
 				foreach(GameObject go in GameObject.FindGameObjectsWithTag("slock")){
 					go.GetComponent<slock>().Unlock();
 				}
 				break;
 			case "time_freeze":
+				pm.SetDamage("Freeze Time");
 				freeze_time = true;
 				break;
 			case "block":
+				pm.SetDamage("Block");
 				blocking = true;
 				break;
 			case "expose_armor":
+				pm.SetDamage("Expose Armor - " + damage.ToString());
 				exposed = true;
 				break;
 			case "cleanse":
+				pm.SetDamage("Cleanse");
 				poisoned = false;
 				break;
 			default:
+				pm.SetDamage(damage.ToString());
 				break;
 			}
 			person.current_delay = person.delay;
@@ -347,21 +363,24 @@ public class Level {
 	public int current_party_health;
 
 	public Floor floor;
+	Model mod;
 
-	public Level(Floor f){
+	public Level(Floor f, Model m){
 		boss_name = f.name;
 		total_boss_health = f.health;
 		current_boss_health = f.health;
 		floor = f;
 		total_party_health = 50;
 		current_party_health = 50;
+		mod = m;
 	}
 
-	public void BossAttack(bool blocking){
+	public void BossAttack(){
 		if(current_boss_delay > 0){
 			current_boss_delay--;
 			if(current_boss_delay == 0){
-				if(!blocking){
+				if(!mod.blocking){
+					mod.boss_attack.SetText(delayed_attack.delayed_name + " - " + delayed_attack.damage.ToString());
 					DamagePlayers(delayed_attack.damage);
 				}
 				delayed_attack = null;
@@ -371,20 +390,24 @@ public class Level {
 				float cur_percent = (float)current_boss_health / (float)total_boss_health;
 				float rand = Random.value;
 				if(cur_percent <= a.max_percent && cur_percent >= a.min_percent && rand < a.chance && a.cur_cooldown == 0){
-					Debug.Log(a.status);
 					switch(a.status){
 					case "slock":
 						foreach(GameObject go in GameObject.FindGameObjectsWithTag("slock")){
 							go.GetComponent<slock>().Lock();
 						}
 						break;
+					case "poison":
+						mod.poisoned = true;
+						break;
 					}
 					a.cur_cooldown = a.cooldown;
 					if(a.delay > 0){
 						delayed_attack = a;
 						current_boss_delay = a.delay;
+						mod.boss_attack.SetText(a.name);
 					} else {
-						if(!blocking){
+						if(!mod.blocking){
+							mod.boss_attack.SetText(a.name + " - " + a.damage.ToString());
 							DamagePlayers(a.damage);
 						}
 					}
@@ -441,12 +464,14 @@ public class Attack {
 	public float chance;
 	public int priority;
 	public int damage;
+	public string name;
 	public string status;
 	public int delay;
 	public int cooldown;
 	public int cur_cooldown = 0;
+	public string delayed_name;
 
-	public Attack(float max, float min, float cha, int prio, int dam, string sta, int del, int cool){
+	public Attack(float max, float min, float cha, int prio, int dam, string nam, int del, int cool, string sta = "", string del_nam = ""){
 		max_percent = max;
 		min_percent = min;
 		chance = cha;
@@ -455,6 +480,8 @@ public class Attack {
 		status = sta;
 		delay = del;
 		cooldown = cool;
+		name = nam;
+		delayed_name = del_nam;
 	}
 }
 

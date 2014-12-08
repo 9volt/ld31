@@ -22,6 +22,9 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	
 	public void OnPointerDown(PointerEventData dt) {
 		drag_targets = GameObject.FindGameObjectsWithTag("drag_target");
+		if(!pm.bench){
+			gameObject.GetComponentInParent<Animator>().enabled = false;
+		}
 		if(!model.animating){
 			isMouseDown = true;
 			startPosition = target.position;
@@ -29,6 +32,9 @@ public class Dragger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	}
 	
 	public void OnPointerUp(PointerEventData dt) {
+		if(!pm.bench){
+			gameObject.GetComponentInParent<Animator>().enabled = true;
+		}
 		if(!model.animating && isMouseDown){
 			isMouseDown = false;
 			foreach(GameObject go in drag_targets){

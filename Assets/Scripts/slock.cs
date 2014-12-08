@@ -15,11 +15,9 @@ public class slock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(locked && pm.me.name == "witch" && !was_witch){
+		if(locked && pm.me.name == "witch"){
 			SetUnlock();
 			was_witch = true;
-			special.interactable = true;
-		} else if(was_witch && locked && pm.me.name == "witch"){
 			special.interactable = true;
 		} else if(was_witch && locked && pm.me.name != "witch"){
 			was_witch = false;
@@ -43,12 +41,12 @@ public class slock : MonoBehaviour {
 	}
 
 	public void Lock(){
-		locked = true;
 		SetLock();
+		locked = true;
 	}
 
 	public void Unlock(){
-		locked = false;
 		SetUnlock();
+		locked = false;
 	}
 }

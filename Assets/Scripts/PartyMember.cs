@@ -7,6 +7,7 @@ public class PartyMember : MonoBehaviour {
 	public Toggle special_toggle;
 	public Toggle attack_toggle;
 	public Text cooldown;
+	public AttackName damage_text;
 	public Image avatar;
 	public Image attack_image;
 	public Image special_image;
@@ -45,5 +46,9 @@ public class PartyMember : MonoBehaviour {
 		Person old_one = me;
 		SetPerson(new_one);
 		return old_one;
+	}
+
+	public void SetDamage(string damage){
+		damage_text.SetText(damage);
 	}
 }
