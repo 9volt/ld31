@@ -36,12 +36,14 @@ public class slock : MonoBehaviour {
 
 	void SetLock(){
 		gameObject.GetComponent<Animator>().SetTrigger("lock");
-
 	}
 
 	void SetUnlock(){
 		gameObject.GetComponent<Animator>().SetTrigger("break");
+	}
 
+	public void Reset(){
+		gameObject.GetComponent<Animator>().SetTrigger("reset");
 	}
 
 	public void Lock(){

@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Model : MonoBehaviour {
 	public bool god_mode;
-	public int god_strength = 100;
+	public int god_strength = 1000;
 	public bool animating;
 	public GameObject last_attacker;
 	public int last_attacker_num;
@@ -19,8 +19,11 @@ public class Model : MonoBehaviour {
 	public AttackName boss_attack;
 	public Text win_text;
 	public Image boss_image;
+	public Animator boss_animator;
+	public Animator party_status_animator;
 	public bool blocking = false;
 	public bool poisoned = false;
+	public bool time_warp = false;
 	public int poison_damage = 20;
 	public Image poison_icon;
 	public Text level_counter;
@@ -45,7 +48,7 @@ public class Model : MonoBehaviour {
 
 	Person sword_man = new Person("sword_man", 3, 6, "strong_sword", 3);
 	Person healer = new Person("healer", 1, 0, "heal", 2);
-	Person witch = new Person("witch", 4, 0, "chain_break", 4);
+	Person witch = new Person("witch", 4, 0, "chain_break", 3);
 	Person archer = new Person("archer", 3, 4, "interrupt", 2);
 	Person mage = new Person("time_mage", 4, 0, "time_freeze", 6);
 	Person druid = new Person("druid", 3, 0, "cleanse", 3);
@@ -131,6 +134,15 @@ public class Model : MonoBehaviour {
 					level.DamageBoss(HandleAttack(p4));
 					last_attacker.GetComponent<Animator>().SetTrigger("attack");
 				} else {
+					if(time_warp){
+						party_status_animator.SetTrigger("time_warp");
+						foreach(Person pers in party_members){
+							if(pers.name != "time_mage"){
+								pers.current_delay = 0;
+							}
+						}
+						time_warp = false;
+					}
 					if(level.current_boss_health <= 0){
 						floor_num++;
 						animating = false;
@@ -216,7 +228,7 @@ public class Model : MonoBehaviour {
 
 		// reset slocks
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("slock")){
-			go.GetComponent<slock>().Unlock();
+			go.GetComponent<slock>().Reset();
 		}
 
 		bossHealth.maxValue = level.total_boss_health;
@@ -343,6 +355,7 @@ public class Model : MonoBehaviour {
 			damage = person.special_attack;
 			switch(person.special_attack_type){
 			case "heal":
+				party_status_animator.SetTrigger("heal");
 				pm.SetDamage("+50");
 				level.DamagePlayers(-50);
 				break;
@@ -350,6 +363,7 @@ public class Model : MonoBehaviour {
 				pm.SetDamage("Interrupt - " + damage.ToString());
 				level.current_boss_delay = 0;
 				level.delayed_attack = null;
+				boss_animator.SetBool("delay", false);
 				break;
 			case "chain_break":
 				pm.SetDamage("Free Mind");
@@ -359,13 +373,10 @@ public class Model : MonoBehaviour {
 				break;
 			case "time_freeze":
 				pm.SetDamage("Time Warp");
-				foreach(Person pers in party_members){
-					if(pers.name != "time_mage"){
-						pers.current_delay = 0;
-					}
-				}
+				time_warp = true;
 				break;
 			case "block":
+				party_status_animator.SetTrigger("block");
 				pm.SetDamage("Block");
 				blocking = true;
 				break;
@@ -422,8 +433,12 @@ public class Level {
 		if(current_boss_delay > 0){
 			current_boss_delay--;
 			if(current_boss_delay == 0){
+				mod.boss_image.GetComponent<Animator>().SetTrigger("jitter");
+				mod.boss_animator.SetTrigger("white");
+				mod.boss_animator.SetBool("delay", false);
+
 				if(!mod.blocking){
-					mod.boss_attack.SetText(delayed_attack.delayed_name + " - " + delayed_attack.damage.ToString());
+					mod.boss_attack.SetText(delayed_attack.delayed_name + " *" + delayed_attack.damage.ToString() + "*");
 					DamagePlayers(delayed_attack.damage);
 				} else {
 					mod.boss_attack.SetText(delayed_attack.delayed_name + " - BLOCKED");
@@ -435,6 +450,7 @@ public class Level {
 				float cur_percent = (float)current_boss_health / (float)total_boss_health;
 				float rand = Random.value;
 				if(cur_percent <= a.max_percent && cur_percent >= a.min_percent && rand < a.chance && a.cur_cooldown == 0){
+					mod.boss_animator.SetBool("poison", false);
 					switch(a.status){
 					case "slock":
 						foreach(GameObject go in GameObject.FindGameObjectsWithTag("slock")){
@@ -442,6 +458,7 @@ public class Level {
 						}
 						break;
 					case "poison":
+						mod.boss_animator.SetBool("poison", true);
 						if(!mod.blocking){
 							mod.poisoned = true;
 						}
@@ -449,12 +466,15 @@ public class Level {
 					}
 					a.cur_cooldown = a.cooldown;
 					if(a.delay > 0){
+						mod.boss_animator.SetBool("delay", true);
 						delayed_attack = a;
 						current_boss_delay = a.delay;
 						mod.boss_attack.SetText(a.name);
 					} else {
+						mod.boss_animator.SetTrigger("white");
+						mod.boss_image.GetComponent<Animator>().SetTrigger("jitter");
 						if(!mod.blocking){
-							mod.boss_attack.SetText(a.name + " - " + a.damage.ToString());
+							mod.boss_attack.SetText(a.name + " *" + a.damage.ToString() + "*");
 							DamagePlayers(a.damage);
 						} else {
 							mod.boss_attack.SetText(a.name + " - BLOCKED");
