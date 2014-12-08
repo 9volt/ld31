@@ -14,6 +14,12 @@ public class GameStarter : MonoBehaviour {
 	}
 
 	public void GameStart(){
+		PlayerPrefs.SetInt("hard_mode", 0);
+		Application.LoadLevel("one_screen");
+	}
+
+	public void GameStartHard(){
+		PlayerPrefs.SetInt("hard_mode", 1);
 		Application.LoadLevel("one_screen");
 	}
 }

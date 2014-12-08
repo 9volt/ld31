@@ -1758,7 +1758,7 @@ GameObject:
   - 222: {fileID: 643098521}
   - 114: {fileID: 643098520}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ResetButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6589,6 +6589,7 @@ MonoBehaviour:
   boss_cooldown: {fileID: 881370949}
   boss_attack: {fileID: 1984039585}
   win_text: {fileID: 109254926}
+  reset_button_text: {fileID: 643098520}
   boss_image: {fileID: 1077953566}
   boss_animator: {fileID: 1844339242}
   party_status_animator: {fileID: 945977050}
