@@ -20,10 +20,13 @@ public class Model : MonoBehaviour {
 	public Text win_text;
 	public Image boss_image;
 	public bool blocking = false;
-	bool exposed = false;
 	public bool poisoned = false;
 	public int poison_damage = 10;
 	public Image poison_icon;
+	public Text level_counter;
+	public Text boss_percent;
+	public Text party_health;
+
 
 	public GameObject p1;
 	public GameObject p2;
@@ -43,7 +46,7 @@ public class Model : MonoBehaviour {
 	Person mage = new Person("time_mage", 4, 0, "time_freeze", 5);
 	Person druid = new Person("druid", 3, 0, "cleanse", 4);
 	Person shield_man = new Person("shield_man", 3, 0, "block", 4);
-	Person rogue = new Person("rogue", 4, 4, "expose_armor", 4);
+	Person rogue = new Person("rogue", 4, 12, "expose_armor", 8);
 
 	public List<Floor> floors;
 	public List<Person> party_members;
@@ -83,7 +86,19 @@ public class Model : MonoBehaviour {
 		}
 		poison_icon.enabled = poisoned;
 		bossHealth.value = level.current_boss_health;
+		if(level.current_boss_health <= 0){
+			boss_percent.text = "0/" + level.total_boss_health.ToString() + " (0%)";
+		} else {
+			boss_percent.text = level.current_boss_health.ToString() + "/" + level.total_boss_health.ToString() + " (" +(((float)level.current_boss_health / (float)level.total_boss_health) * 100).ToString("0") + "%)";
+		}
 		partyHealth.value = level.current_party_health;
+
+		if(level.current_party_health <= 0){
+			party_health.text = "0/" + level.total_party_health.ToString();
+		} else {
+			party_health.text = level.current_party_health.ToString() + "/" + level.total_party_health.ToString();
+		}
+
 		if(level.current_boss_delay > 0){
 			boss_cooldown.text = level.current_boss_delay.ToString();
 		} else {
@@ -99,17 +114,17 @@ public class Model : MonoBehaviour {
 				if(last_attacker_num == 1 && p2.activeSelf){
 					last_attacker = p2;
 					last_attacker_num = 2;
-					level.DamageBoss(HandleAttack(p2), exposed);
+					level.DamageBoss(HandleAttack(p2));
 					last_attacker.GetComponent<Animator>().SetTrigger("attack");
 				} else if(last_attacker_num == 2 && p3.activeSelf){
 					last_attacker = p3;
 					last_attacker_num = 3;
-					level.DamageBoss(HandleAttack(p3), exposed);
+					level.DamageBoss(HandleAttack(p3));
 					last_attacker.GetComponent<Animator>().SetTrigger("attack");
 				} else if(last_attacker_num == 3 && p4.activeSelf){
 					last_attacker = p4;
 					last_attacker_num = 4;
-					level.DamageBoss(HandleAttack(p4), exposed);
+					level.DamageBoss(HandleAttack(p4));
 					last_attacker.GetComponent<Animator>().SetTrigger("attack");
 				} else {
 					if(level.current_boss_health <= 0){
@@ -140,6 +155,7 @@ public class Model : MonoBehaviour {
 	}
 
 	void LoadFloor(int num){
+		level_counter.text = (num + 1).ToString () + "/" + floors.Count.ToString();
 		switch(num){
 		case 2:
 			p2.SetActive(true);
@@ -326,10 +342,6 @@ public class Model : MonoBehaviour {
 				pm.SetDamage("Block");
 				blocking = true;
 				break;
-			case "expose_armor":
-				pm.SetDamage("Expose Armor - " + damage.ToString());
-				exposed = true;
-				break;
 			case "cleanse":
 				pm.SetDamage("Cleanse");
 				poisoned = false;
@@ -345,7 +357,7 @@ public class Model : MonoBehaviour {
 
 	public void Execute(){
 		if(level.current_party_health > 0){
-			level.DamageBoss(HandleAttack(p1), exposed);
+			level.DamageBoss(HandleAttack(p1));
 			p1.GetComponent<Animator>().SetTrigger("attack");
 			animating = true;
 			last_attacker = p1;
@@ -421,10 +433,7 @@ public class Level {
 		floor.LowerCooldowns();
 	}
 
-	public void DamageBoss(int damage, bool exposed){
-		if(exposed){
-			damage = damage * 2;
-		}
+	public void DamageBoss(int damage){
 		current_boss_health -= damage;
 	}
 
