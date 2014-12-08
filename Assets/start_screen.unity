@@ -391,7 +391,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'A Ludum Dare 31 jam game
 
-    Art/Programming: Joseph and Sonya Utecht
+    Programming: Joseph Utecht
+
+    Art: Sonya Utecht
 
     Music: Jeff Craft'
 --- !u!222 &867396554
@@ -809,7 +811,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME NAME the one screen RPG
+  m_Text: TapRPG the one screen RPG
 --- !u!222 &1668377730
 CanvasRenderer:
   m_ObjectHideFlags: 0
