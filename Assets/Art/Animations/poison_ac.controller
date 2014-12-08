@@ -5,22 +5,16 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: party_status_animator
+  m_Name: poison_ac
   serializedVersion: 2
   m_AnimatorParameters:
-  - m_Name: time_warp
+  - m_Name: poison
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: heal
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: block
+  - m_Name: pulse
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -45,100 +39,60 @@ Transition:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_SrcState: {fileID: 0}
+  m_SrcState: {fileID: 110231427}
   m_DstState: {fileID: 110200000}
-  m_TransitionDuration: .100000001
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: time_warp
+    m_ConditionEvent: poison
     m_EventTreshold: 0
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
---- !u!1101 &110109395
+--- !u!1101 &110106922
 Transition:
   serializedVersion: 2
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_SrcState: {fileID: 110291932}
-  m_DstState: {fileID: 110286910}
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: block
-    m_EventTreshold: 0
-    m_ExitTime: 0
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
-  m_CanTransitionToSelf: 0
---- !u!1101 &110117082
-Transition:
-  serializedVersion: 2
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110232566}
-  m_DstState: {fileID: 110286910}
+  m_SrcState: {fileID: 110246762}
+  m_DstState: {fileID: 110231427}
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
     m_ConditionEvent: 
     m_EventTreshold: 0
-    m_ExitTime: 0
+    m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
---- !u!1101 &110131234
+--- !u!1101 &110127834
 Transition:
   serializedVersion: 2
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_SrcState: {fileID: 0}
-  m_DstState: {fileID: 110291932}
-  m_TransitionDuration: .100000001
+  m_SrcState: {fileID: 110231427}
+  m_DstState: {fileID: 110246762}
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: heal
+    m_ConditionEvent: pulse
     m_EventTreshold: 0
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
---- !u!1101 &110144391
-Transition:
-  serializedVersion: 2
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 0}
-  m_DstState: {fileID: 110232566}
-  m_TransitionDuration: .100000001
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: block
-    m_EventTreshold: 0
-    m_ExitTime: .899999976
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
-  m_CanTransitionToSelf: 0
---- !u!1101 &110186944
+--- !u!1101 &110193254
 Transition:
   serializedVersion: 2
   m_ObjectHideFlags: 3
@@ -146,14 +100,14 @@ Transition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_SrcState: {fileID: 110200000}
-  m_DstState: {fileID: 110286910}
+  m_DstState: {fileID: 110231427}
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
-    m_ConditionEvent: block
+    m_ConditionEvent: pulse
     m_EventTreshold: 0
-    m_ExitTime: 0
+    m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -163,58 +117,43 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: clocked
+  m_Name: poisoned
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400000, guid: 15c440de108bd634d8376debb8fd2800, type: 2}
+  - {fileID: 7400000, guid: 5057f56bbe07d1e41811aa9fc8d680ea, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: -264, y: -36, z: 0}
+  m_Position: {x: 156, y: 72, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
---- !u!1102 &110232566
+--- !u!1102 &110231427
 State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: block
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400000, guid: 1dba3c2049a7136428705ea2be706486, type: 2}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 72, y: -36, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
---- !u!1102 &110286910
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: New State
+  m_Name: empty
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 0}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 60, y: 132, z: 0}
+  m_Position: {x: 360, y: -36, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
---- !u!1102 &110291932
+--- !u!1102 &110246762
 State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: healed
+  m_Name: poison_pulse
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400000, guid: e8a683119f12e6546b80cea48cbb3dc4, type: 2}
+  - {fileID: 7400000, guid: c8a6947c6a095944d8ab41a29ea32215, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 264, y: 0, z: 0}
+  m_Position: {x: 612, y: 24, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -225,36 +164,30 @@ StateMachine:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Base Layer
-  m_DefaultState: {fileID: 110286910}
+  m_DefaultState: {fileID: 110231427}
   m_States:
   - {fileID: 110200000}
-  - {fileID: 110291932}
-  - {fileID: 110286910}
-  - {fileID: 110232566}
+  - {fileID: 110231427}
+  - {fileID: 110246762}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110232566}
+      first: {fileID: 110246762}
       second:
-      - {fileID: 110117082}
+      - {fileID: 110106922}
     data:
-      first: {fileID: 110286910}
-      second: []
-    data:
-      first: {fileID: 110291932}
+      first: {fileID: 110231427}
       second:
-      - {fileID: 110109395}
+      - {fileID: 110100000}
+      - {fileID: 110127834}
     data:
       first: {fileID: 110200000}
       second:
-      - {fileID: 110186944}
+      - {fileID: 110193254}
     data:
       first: {fileID: 0}
-      second:
-      - {fileID: 110100000}
-      - {fileID: 110131234}
-      - {fileID: 110144391}
+      second: []
   m_MotionSetCount: 1
-  m_AnyStatePosition: {x: 48, y: -108, z: 0}
+  m_AnyStatePosition: {x: 192, y: -96, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

@@ -153,6 +153,7 @@ public class Model : MonoBehaviour {
 					}
 					if(poisoned){
 						level.DamagePlayers(poison_damage);
+						poison_icon.GetComponent<Animator>().SetTrigger("pulse");
 					}
 					animating = false;
 					blocking = false;
@@ -313,13 +314,13 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Punch", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash7_spider", 150);
-		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 10, "Spider Bite - POISONED", 0, 4, "poison"));
+		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 1, 10, "Spider Bite", 0, 4, "poison"));
 		f.AddAttack(new Attack(1.0f, 0.0f, 0.5f, 2, 30, "Web", 0, 4, "slock"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 3, 20, "Spider Swarm", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Nibble", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss7_spider_girl", 200);
-		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 25, "Envenomed Fangs - POISONED", 0, 4, "poison"));
+		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 25, "Envenomed Fangs", 0, 4, "poison"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 40, "Sticky Web", 0, 8, "slock"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 25, "Feed", 0, 8));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 40, "Stickier Web", 0, 8, "slock"));
@@ -329,8 +330,8 @@ public class Model : MonoBehaviour {
 		f = new Floor("trash8_drake", 200);
 		f.AddAttack(new Attack(0.25f, 0.0f, 1.0f, 1, 40, "Flame Breath", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 2, 100, "Flies up...", 1, 4, "", "Rake"));
-		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Breaths in...", 1, 4, "", "Englufing Flames"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 20, "Poison Spit - POISONED", 0, 5, "poison"));
+		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Breaths in...", 1, 4, "", "Engulfing Flames"));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 20, "Poison Spit", 0, 5, "poison"));
 		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 20, "Drake Claws", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
@@ -338,7 +339,7 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(0.15f, 0.0f, 1.0f, 1, 50, "Dragon's Fire", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 2, 40, "Ferocious Bite", 0, 4));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Takes a deep breath...", 2, 4, "", "World in Flames"));
-		f.AddAttack(new Attack(0.75f, 0.35f, 1.0f, 4, 20, "Poisoned Claws - POISONED", 0, 5, "poison"));
+		f.AddAttack(new Attack(0.75f, 0.35f, 1.0f, 4, 20, "Poisoned Claws", 0, 5, "poison"));
 		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 5, 20, "Terrifying Roar", 0, 4, "slock"));
 		f.AddAttack(new Attack(0.5f, 0.15f, 0.5f, 6, 60, "Dragon's Bite", 0, 3));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 7, 15, "Rend", 0, 0));
@@ -468,6 +469,7 @@ public class Level {
 					case "poison":
 						mod.boss_animator.SetBool("poison", true);
 						if(!mod.blocking){
+							mod.poison_icon.GetComponent<Animator>().SetTrigger("poison");
 							mod.poisoned = true;
 						}
 						break;

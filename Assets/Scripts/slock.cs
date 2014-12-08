@@ -43,6 +43,7 @@ public class slock : MonoBehaviour {
 	}
 
 	public void Reset(){
+		locked = false;
 		gameObject.GetComponent<Animator>().SetTrigger("reset");
 	}
 
