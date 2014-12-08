@@ -299,11 +299,11 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Nibble", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss7_spider_girl", 200);
-		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 30, "Envenomed Fangs - POISONED", 0, 4, "poison"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 40, "Sticky Web", 0, 5, "slock"));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 25, "Feed", 0, 5));
-		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 40, "Stickier Web", 0, 5, "slock"));
-		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 60, "strong attack", 0, 2));
+		f.AddAttack(new Attack(.50f, 0.0f, 1.0f, 1, 25, "Envenomed Fangs - POISONED", 0, 4, "poison"));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 40, "Sticky Web", 0, 8, "slock"));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 25, "Feed", 0, 8));
+		f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 40, "Stickier Web", 0, 8, "slock"));
+		f.AddAttack(new Attack(0.5f, 0.0f, 0.5f, 5, 25, "Bite", 0, 2));
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("trash8_drake", 200);
@@ -315,7 +315,7 @@ public class Model : MonoBehaviour {
 		f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 		floors.Add(f);
 		f = new Floor("boss8_dragon", 350);
-		f.AddAttack(new Attack(0.20f, 0.0f, 1.0f, 1, 50, "Dragon's Fire", 0, 0));
+		f.AddAttack(new Attack(0.15f, 0.0f, 1.0f, 1, 50, "Dragon's Fire", 0, 0));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 2, 40, "Ferocious Bite", 0, 4));
 		f.AddAttack(new Attack(0.5f, 0.25f, 1.0f, 3, 100, "Takes a deep breath...", 2, 4, "", "World in Flames"));
 		f.AddAttack(new Attack(0.75f, 0.35f, 1.0f, 4, 20, "Poisoned Claws - POISONED", 0, 5, "poison"));
