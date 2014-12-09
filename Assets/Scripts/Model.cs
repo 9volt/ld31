@@ -449,10 +449,10 @@ public class Model : MonoBehaviour {
 			f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 5, 10, "Nibble", 0, 0));
 			floors.Add(f);
 			f = new Floor("boss7_spider_girl", 200);
-			f.AddAttack(new Attack(1.0f, 0.25f, 1.0f, 1, 25, "Envenomed Fangs", 0, 4, "poison"));
-			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 25, "Sticky Web", 0, 8, "slock"));
-			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 20, "Feed", 0, 8));
-			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 25, "Stickier Web", 0, 8, "slock"));
+			f.AddAttack(new Attack(1.0f, 0.25f, 1.0f, 1, 20, "Envenomed Fangs", 0, 4, "poison"));
+			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 2, 20, "Sticky Web", 0, 8, "slock"));
+			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 3, 15, "Feed", 0, 8));
+			f.AddAttack(new Attack(0.75f, 0.0f, 1.0f, 4, 20, "Stickier Web", 0, 8, "slock"));
 			f.AddAttack(new Attack(0.25f, 0.0f, 1.0f, 5, 25, "Deep Bite", 0, 3));
 			f.AddAttack(new Attack(1.0f, 0.0f, 1.0f, 6, 10, "Bite", 0, 0));
 			floors.Add(f);
